@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}Gestion del deporte{% endblock %}
+
+{% block body %}
+    {% for articulo in articulos %}
+        <section>
+                <header>
+               <div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+					<!--<h3 class="page-title">
+					Dashboard <small>statistics and more</small>
+					</h3>-->
+                        <div class="col-md-9">
+                          <ul class="page-breadcrumb breadcrumb">
+                            <li>
+                                <h4><a style="text-decoration: none;" href="{% url 'articulo' articulo.id %}">{{ articulo.titulo }}</a></h4>
+                            </li>
+                           </ul>
+					<!-- END PAGE TITLE & BREADCRUMB-->
+                        </div>
+                    <div class="col-md-3">
+                        <ul class="page-breadcrumb breadcrumb">
+                            Votos del artículo:
+                            <li>
+                                  <i class="fa">
+                                     <a href="{% url 'restarVotosArticulo' articulo.id %}">
+                                            <div class="cont">
+                                                <div class="cont-col2">
+                                                    <div class="label label-sm label-warning">
+                                                        <div class="fa fa-minus">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                     </a>
+                                  </i>
+                            </li>
+                            <li>
+                                <i>{{ articulo.votos }}</i>
+                            </li>
+                            <li>
+                                <a href="{% url 'sumarVotosArticulo' articulo.id %}">
+                                    <div class="cont">
+                                            <div class="cont-col2">
+                                                <div class="label label-sm label-success">
+                                                    <div class="fa fa-plus">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </a>
+                            </li>
+                          </ul>
+                    </div>
+				</div>
+			</div>
+                </header>
+            <div class="container">
+                <nav>
+                    <p><h4>Fecha de creado: {{ articulo.fecha_creado|date:"d-m-Y" }}</h4></p>
+                    <p>Elaborado por: {{ articulo.usuario }}</p>
+                </nav>
+                <article>
+                    <div class="col-md-12">
+                        <div class="col-md-8">
+                            <img class="imagen" src="{{ MEDIA_URL }}{{ articulo.imagen }}">
+                            <font class="contenido">{{ articulo.contenido }}</font>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <div>&nbsp;</div>
+    {% endfor %}
+
+    <!--Creando el paginado-->
+        <div class="pull-right">
+            <span class="step-links">
+                {% if articulos.has_previous %}
+                    <a href="?page={{ articulos.previous_page_number }}">Anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    página {{ articulos.number }} de {{ articulos.paginator.num_pages }}.
+                </span>
+
+                {% if articulos.has_next %}
+                    <a href="?page={{ articulos.next_page_number }}">Siguiente</a>
+                {% endif %}
+            </span>
+        </div>
+    <!--Fin de la paginacion-->
+{% endblock %}

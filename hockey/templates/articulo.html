@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block body %}
+    <!--Articulos -->
+    <section>
+        <header>
+            <center><h3>{{ articulo.titulo }}</h3></center>
+        </header>
+        <nav>
+             <p><h4>Fecha de creado: {{ articulo.fecha_creado|date:"d-m-Y" }}</h4></p>
+            <p>Elaborado por: {{ articulo.usuario }}</p>
+        </nav>
+        <article>
+             <div class="col-md-12">
+                        <div class="col-md-12">
+                            <img class="imagen" src="{{ MEDIA_URL }}{{ articulo.imagen }}">
+                            <font class="contenido">{{ articulo.contenido }}</font>
+                        </div>
+                    </div>
+        </article>
+        <article>
+
+            <div class="row">
+                    <div class="col-md-12">
+                            <ul class="page-breadcrumb breadcrumb">
+                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<li><b><h4>Comentarios</h4></b></li>
+                            </ul>
+
+            <div class="col-md-9">
+                      <div class="portlet-body" id="chats">
+                         <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+                             <ul class="chats">
+                                 <li class="in">
+                                        {% for comentario in comentarios %}
+                                             <img class="avatar img-responsive" alt="" src="{{ MEDIA_URL }}{{ comentario.avatar }}"/>
+                                             <div class="message">
+                                                 <span class="arrow">
+                                                 </span>
+                                                 <span class="name">
+                                                                         {{ comentario.nick }}
+                                                 </span>
+                                                 <span class="datetime">
+                                                                         {{ comentario.fecha_publicacion|date:"d-m-Y" }}
+                                                 </span>
+                                                 <span class="body">
+                                                                         {{ comentario.contenido }}
+                                                 </span>
+                                             </div>
+                                                {% endfor %}
+                                 </li>
+                             </ul>
+                         </div>
+                     </div>
+            </div>
+            </div>
+            </div>
+        </article>
+    </section>
+    <!--Fin de la secion articulos-->
+{% endblock %}

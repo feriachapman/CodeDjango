@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
-from models import *
+from hockey.models import Articulo, Comentario
+
 
 class ArticuloForm(ModelForm):
     class Meta:
@@ -17,3 +18,4 @@ class ArticuloForm(ModelForm):
 class ComentarioForm(ModelForm):
     class Meta:
         model = Comentario
+        exclude = ()

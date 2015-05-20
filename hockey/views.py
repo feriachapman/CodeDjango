@@ -1,18 +1,10 @@
+from urllib.request import Request, urlopen
 from django.shortcuts import render,redirect, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from hockey.models import *
-from hockey.forms import ArticuloForm
-from forms import *
-from django import forms
-from django.contrib.auth import authenticate, login
+from .forms import *
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-
 #incluyendo librerias para consumir servicios web.
 import json
-import os
-from urllib2 import Request, urlopen, URLError
-
 
 def index(request):
     listaArticulos = Articulo.objects.all()
@@ -84,7 +76,3 @@ def consumoPersonas(request):
         name = str(data['nombre'])
         listaNombre.append(name)
     return HttpResponse(listaNombre)
-
-
-
-
